@@ -47,7 +47,24 @@ outerBlock.appendChild(container)
 for(i=1;i <= 256; i++) {
 var gridbox = document.createElement("div")
 gridbox.classList.add("grid-box");
-gridbox.setAttribute("style", "width: 60px; height: 60px; background-color: none;")
+gridbox.setAttribute("id", `box-${i}`)
+gridbox.setAttribute("style", "width: 60px; height: 60px;")
 container.appendChild(gridbox);
 }
 ///
+
+
+var myColor = document.getElementsByClassName("grid-box");
+
+for (var i = 0; i < myColor.length; i++) {
+    myColor[i].addEventListener("mouseover", function(){
+        this.style.backgroundColor = "black";
+    })
+}
+
+document.getElementById("reset-button").addEventListener("click", function() {
+    for (var i= 0; i < myColor.length; i++) {
+        myColor[i].style.backgroundColor = none;
+    }
+})
+
