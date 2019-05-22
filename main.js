@@ -1,5 +1,6 @@
 ///
 let userValue = 16;
+var colorChange = false;
 
 var wrapper = document.createElement("div")
 wrapper.classList.add("wrapper")
@@ -82,8 +83,12 @@ let colorState = {
 ///
 
 document.getElementById("color-button").addEventListener("click", function() {
-    
-    colorState.color = colorPool[Math.floor(Math.random() * colorPool.length)]
+    if (colorChange) {
+        colorChange = false;
+    } else {
+        colorChange = true;
+    }
+    ///colorState.color = colorPool[Math.floor(Math.random() * colorPool.length)]
 
 })
 
@@ -91,14 +96,35 @@ var myColor = document.getElementsByClassName("grid-box");
 
 container.addEventListener('mouseover', function(e) {
     if (e.target.classList.contains('grid-box')) {
-        e.target.style.backgroundColor = colorState.color;
+        if (colorChange) {
+            e.target.style.backgroundColor = colorPool[Math.floor(Math.random() * colorPool.length)]
+        } else {
+            e.target.style.backgroundColor = '#000';
+        }
     }
 });
 
 document.getElementById("reset-button").addEventListener("click", function() {
-    for (var i= 0; i < myColor.length; i++) {
-        myColor[i].style.backgroundColor = '';
-    }
+    console.log('hi')
+
+    let paras = document.getElementsByClassName("grid-box");
+    
+    while(paras[0]) {
+        paras[0].parentNode.removeChild(paras[0]);
+    } 
+    userValue = window.prompt("enter how many rows you'd like", "16");
+    let sideLength = (960/userValue)
+
+    for(i=1;i <= (userValue* userValue); i++) {
+        var gridbox = document.createElement("div")
+        gridbox.classList.add("grid-box");
+        gridbox.setAttribute("id", `box-${i}`)
+        gridbox.setAttribute("style", `width: ${sideLength}px; height: ${sideLength}px;`)
+        container.appendChild(gridbox);
+        }
+
+    
+
 })
 
 
